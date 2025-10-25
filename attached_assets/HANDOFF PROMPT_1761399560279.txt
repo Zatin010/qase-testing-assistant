@@ -1,0 +1,61 @@
+HANDOFF PROMPT: Qase AI Testing Assistant Chrome Extension (v0.2.0)
+
+Project Context:
+You are taking over development of a Chrome Extension (Manifest V3) that serves as a proactive AI testing assistant for Qase.io. The extension has completed Phase 2 and is production-ready.
+
+Current Status:
+
+Version: 0.2.0
+Phase 1 Complete: JavaScript error detection, Qase API integration, defect reporting
+Phase 2 Complete: Proactive AI context monitoring (activity tracking, help scoring, DOM observation)
+Architecture Overview:
+
+Extension Components:
+├── background.js - Service worker (error queue + help requests)
+├── content/content-script.js - Error detection
+├── monitoring/ - Phase 2 AI system
+│   ├── activity-tracker.js - User behavior patterns
+│   ├── context-analyzer.js - Help score calculation
+│   └── dom-observer.js - UI error detection
+├── popup/ - Extension UI (3 tabs: Errors, Insights, Settings)
+└── utils/ - API wrapper + storage helpers
+Key Features:
+
+Error Detection: Captures JS errors, promise rejections, console.error() calls
+Qase Integration: Creates defect reports via API with smart retry logic
+Activity Monitoring: Tracks rapid clicks, form abandonment, hesitation patterns
+Context Analysis: Calculates help-needed scores (0.0-1.0) using weighted algorithm
+DOM Observation: Detects validation errors, empty states, stuck loading
+Privacy: Domain-gated monitoring (only on *.qase.io, localhost)
+Testing:
+
+test-page.html - Error detection validation
+test-monitoring.html - Monitoring system validation
+Load extension: chrome://extensions/ → Developer mode → Load unpacked
+Next Development Goals:
+
+Phase 3: CrewAI multi-agent integration
+Phase 4: MCP (Model Context Protocol) support
+Phase 5: LLM-powered features (automated suggestions, NL defect creation)
+Important Notes:
+
+All monitoring only activates on Qase domains (security/privacy)
+Help threshold: 0.6 (60% confidence before offering help)
+Extension uses storage-based queues (max 50 help requests, auto-cleanup after 1 hour)
+No regressions: Phase 1 error detection still fully functional
+Current Issue Fixed:
+The Insights tab was not loading properly due to event listener overrides. This has been corrected.
+
+Your Task:
+Continue development from Phase 2. The extension is stable and ready for Phase 3 integration. All documentation is in README.md, PHASE2-README.md, and PROJECT-STATUS.md.
+
+Debug Commands:
+
+// Browser console (on test pages):
+window.qaseActivityTracker.getSessionSummary()
+window.qaseContextAnalyzer.getAnalysisHistory()
+window.qaseForceAnalysis()
+// Extension service worker:
+chrome.storage.local.get(['helpRequests'], console.log)
+chrome.storage.local.get(['errorQueue'], console.log)
+Proceed with understanding the codebase and preparing for Phase 3 (CrewAI integration).

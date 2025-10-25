@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qase Testing Assistant</title>
+    <link rel="stylesheet" href="popup.css">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Qase Testing Assistant</h1>
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="errors">Errors <span id="errorCount"
+                        class="badge">0</span></button>
+                <button class="tab-btn" data-tab="insights">Insights <span id="helpCount"
+                        class="badge">0</span></button>
+                <button class="tab-btn" data-tab="settings">Settings</button>
+            </div>
+        </header>
+
+        <div id="errorsTab" class="tab-content active">
+            <div id="errorsList" class="errors-list">
+                <div class="empty-state">
+                    <p>No errors detected yet</p>
+                    <small>Errors will appear here when JavaScript errors occur on web pages</small>
+                </div>
+            </div>
+
+            <div class="actions">
+                <button id="clearAllBtn" class="btn btn-secondary">Clear All</button>
+                <button id="clearStorageBtn" class="btn btn-danger" style="font-size: 11px; padding: 6px 10px;">🗑️
+                    Clear Storage (Debug)</button>
+            </div>
+        </div>
+
+        <div id="insightsTab" class="tab-content">
+            <div class="insights-section">
+                <h3>📊 Activity Summary</h3>
+                <div id="activityStats" class="stats-display">
+                    <p>No activity data available yet</p>
+                    <small>Visit Qase pages to start tracking behavior patterns</small>
+                </div>
+            </div>
+
+            <div class="insights-section">
+                <h3>🆘 Help Requests</h3>
+                <div id="helpRequestsList" class="help-requests-list">
+                    <div class="empty-state">
+                        <p>No help requests yet</p>
+                        <small>The system will automatically detect when you need assistance</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="actions">
+                <button id="clearHelpBtn" class="btn btn-secondary">Clear Help Requests</button>
+                <button id="refreshInsightsBtn" class="btn btn-primary">Refresh</button>
+            </div>
+        </div>
+
+        <div id="settingsTab" class="tab-content">
+            <div class="settings-form">
+                <div class="form-group">
+                    <label for="apiToken">Qase API Token</label>
+                    <input type="password" id="apiToken" placeholder="Enter your Qase API token">
+                    <small>Get your token from <a href="https://app.qase.io/user/api/token" target="_blank">Qase
+                            settings</a></small>
+                </div>
+
+                <div class="form-group">
+                    <label for="projectCode">Project Code</label>
+                    <input type="text" id="projectCode" placeholder="e.g., DEMO">
+                    <small>Your Qase project code (2-6 characters)</small>
+                </div>
+
+                <div id="settingsMessage" class="message"></div>
+
+                <div class="form-actions">
+                    <button id="validateBtn" class="btn btn-secondary">Validate</button>
+                    <button id="saveBtn" class="btn btn-primary">Save Settings</button>
+                </div>
+
+                <div class="settings-info">
+                    <p><strong>Status:</strong> <span id="configStatus">Not configured</span></p>
+                </div>
+            </div>
+        </div>
+
+        <div id="reportModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Report to Qase</h2>
+                    <button class="close-btn">&times;</button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="defectTitle">Title</label>
+                        <input type="text" id="defectTitle" maxlength="100">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="defectSeverity">Severity</label>
+                        <select id="defectSeverity">
+                            <option value="trivial">Trivial</option>
+                            <option value="minor">Minor</option>
+                            <option value="major" selected>Major</option>
+                            <option value="critical">Critical</option>
+                            <option value="blocker">Blocker</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="defectDetails">Details (Actual Result)</label>
+                        <textarea id="defectDetails" rows="8" readonly></textarea>
+                    </div>
+
+                    <div id="reportMessage" class="message"></div>
+                </div>
+
+                <div class="modal-footer">
+                    <button id="cancelReportBtn" class="btn btn-secondary">Cancel</button>
+                    <button id="submitReportBtn" class="btn btn-primary">Submit to Qase</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../utils/storage.js"></script>
+    <script src="../utils/api.js"></script>
+    <script src="popup.js"></script>
+</body>
+
+</html>

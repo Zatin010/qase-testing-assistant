@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qase Monitoring System Test Page</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .score-display {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .score-value {
+            font-size: 48px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .score-label {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 12px;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .test-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .test-section h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: #667eea;
+            color: white;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .btn-error {
+            background: #ff4444;
+        }
+
+        .btn-warning {
+            background: #ff9800;
+        }
+
+        .btn-success {
+            background: #4caf50;
+        }
+
+        .activity-log {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            padding: 25px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .activity-log h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .log-entry {
+            padding: 10px;
+            margin-bottom: 8px;
+            background: #f5f5f5;
+            border-radius: 6px;
+            font-size: 13px;
+            border-left: 3px solid #667eea;
+        }
+
+        .log-time {
+            color: #999;
+            font-size: 11px;
+            margin-right: 10px;
+        }
+
+        .log-type {
+            font-weight: bold;
+            margin-right: 10px;
+            color: #667eea;
+        }
+
+        .help-offer {
+            background: #ffd700;
+            border: 2px solid #ffA500;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .help-offer.active {
+            display: block;
+        }
+
+        .help-offer h3 {
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .test-form {
+            margin-top: 15px;
+        }
+
+        .test-form input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .error-message {
+            background: #ffebee;
+            color: #c62828;
+            padding: 10px;
+            border-radius: 6px;
+            margin-top: 10px;
+            display: none;
+        }
+
+        .error-message.active {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>🧪 Qase Monitoring System Test Page</h1>
+            <p class="subtitle">Test the proactive AI context monitoring system by simulating user behavior patterns</p>
+        </header>
+
+        <div class="help-offer" id="helpOffer">
+            <h3>🆘 Help Needed (Score exceeded threshold)</h3>
+            <p id="helpMessage">The system detected you might need assistance.</p>
+            <button onclick="dismissHelp()" style="margin-top: 10px;">Dismiss</button>
+        </div>
+
+        <div class="score-display">
+            <div class="score-label">Current Help Score</div>
+            <div class="score-value" id="scoreValue">0.00</div>
+            <div class="score-label">Threshold: 0.60</div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">Total Clicks</div>
+                <div class="stat-value" id="statClicks">0</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Rapid Clicks</div>
+                <div class="stat-value" id="statRapidClicks">0</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Hesitations</div>
+                <div class="stat-value" id="statHesitations">0</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Help Offers</div>
+                <div class="stat-value" id="statHelpOffers">0</div>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>😤 Frustration Patterns</h2>
+            <div class="button-grid">
+                <button onclick="triggerRapidClicks()">Trigger Rapid Clicks (5x)</button>
+                <button onclick="triggerRepeatedActions()">Trigger Repeated Actions</button>
+                <button onclick="triggerBackNavigation()">Simulate Back Navigation</button>
+                <button onclick="triggerMultiplePatterns()">Multiple Frustration Patterns</button>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>📝 Form Interactions</h2>
+            <div class="test-form">
+                <input type="text" id="testInput1" placeholder="Type and delete to simulate abandonment">
+                <input type="text" id="testInput2" placeholder="Another test field">
+            </div>
+            <div class="button-grid">
+                <button onclick="simulateFormAbandonment()">Simulate Form Abandonment</button>
+                <button onclick="simulateFormInteraction()">Rapid Form Switching</button>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>⚠️ Error States</h2>
+            <div class="button-grid">
+                <button class="btn-error" onclick="createErrorMessage()">Create Error Message</button>
+                <button class="btn-error" onclick="createValidationError()">Create Validation Error</button>
+                <button class="btn-warning" onclick="createEmptyState()">Create Empty State</button>
+                <button class="btn-error" onclick="createStuckLoading()">Create Stuck Loading</button>
+            </div>
+            <div class="error-message" id="testError"></div>
+        </div>
+
+        <div class="test-section">
+            <h2>⏸️ Hesitation Patterns</h2>
+            <div class="button-grid">
+                <button onclick="simulatePause()">Pause Activity (5s)</button>
+                <button onclick="simulateMultiplePauses()">Multiple Pauses</button>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>🔧 Manual Controls</h2>
+            <div class="button-grid">
+                <button class="btn-success" onclick="forceAnalysis()">Force Analysis Now</button>
+                <button class="btn-warning" onclick="viewHistory()">View Analysis History</button>
+                <button onclick="resetMonitoring()">Reset All Stats</button>
+                <button onclick="checkStorage()">Check Background Storage</button>
+            </div>
+        </div>
+
+        <div class="activity-log">
+            <h2>📋 Activity Log</h2>
+            <div id="activityLog">
+                <div class="log-entry">
+                    <span class="log-time">00:00:00</span>
+                    <span class="log-type">INFO</span>
+                    Monitoring system initialized
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let helpOffersCount = 0;
+        let currentScore = 0;
+
+        // Listen for context updates
+        window.addEventListener('qase_context_update', (event) => {
+            logActivity('CONTEXT', 'Context update received, analyzing patterns...');
+            console.log('Context update:', event.detail);
+        });
+
+        // Listen for help offers
+        window.addEventListener('qase_help_needed', (event) => {
+            helpOffersCount++;
+            currentScore = event.detail.score;
+
+            document.getElementById('scoreValue').textContent = currentScore.toFixed(2);
+            document.getElementById('statHelpOffers').textContent = helpOffersCount;
+            document.getElementById('helpOffer').classList.add('active');
+            document.getElementById('helpMessage').textContent = event.detail.suggestedHelp;
+
+            logActivity('HELP', `Help offer triggered (Score: ${currentScore.toFixed(2)})`);
+        });
+
+        // Update stats display
+        setInterval(() => {
+            if (window.qaseActivityTracker) {
+                const summary = window.qaseActivityTracker.getSessionSummary();
+                document.getElementById('statClicks').textContent = summary.stats.clicks;
+                document.getElementById('statRapidClicks').textContent = summary.stats.rapidClicks;
+                document.getElementById('statHesitations').textContent = summary.stats.hesitations;
+            }
+
+            if (window.qaseContextAnalyzer) {
+                const stats = window.qaseContextAnalyzer.getStats();
+                if (stats.averageScore > 0) {
+                    currentScore = stats.averageScore;
+                    document.getElementById('scoreValue').textContent = currentScore.toFixed(2);
+                }
+            }
+        }, 1000);
+
+        function triggerRapidClicks() {
+            logActivity('ACTION', 'Triggering 5 rapid clicks...');
+            const btn = event.target;
+            for (let i = 0; i < 5; i++) {
+                setTimeout(() => btn.click(), i * 100);
+            }
+        }
+
+        function triggerRepeatedActions() {
+            logActivity('ACTION', 'Triggering repeated actions...');
+            const btn = event.target;
+            for (let i = 0; i < 3; i++) {
+                setTimeout(() => btn.click(), i * 1500);
+            }
+        }
+
+        function triggerBackNavigation() {
+            logActivity('ACTION', 'Simulating back navigation...');
+            window.history.pushState({}, '', window.location.href + '#test');
+            setTimeout(() => window.history.back(), 100);
+        }
+
+        function triggerMultiplePatterns() {
+            logActivity('ACTION', 'Triggering multiple frustration patterns...');
+            triggerRapidClicks();
+            setTimeout(() => triggerRepeatedActions(), 1000);
+            setTimeout(() => simulateFormAbandonment(), 2000);
+        }
+
+        function simulateFormAbandonment() {
+            logActivity('ACTION', 'Simulating form abandonment...');
+            const input = document.getElementById('testInput1');
+            input.focus();
+            input.value = 'Test data';
+            setTimeout(() => {
+                input.value = '';
+                input.blur();
+            }, 500);
+        }
+
+        function simulateFormInteraction() {
+            logActivity('ACTION', 'Simulating rapid form switching...');
+            const inputs = [document.getElementById('testInput1'), document.getElementById('testInput2')];
+            let index = 0;
+            const interval = setInterval(() => {
+                inputs[index % 2].focus();
+                index++;
+                if (index >= 6) clearInterval(interval);
+            }, 300);
+        }
+
+        function createErrorMessage() {
+            logActivity('ERROR', 'Creating error message...');
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'validation-error';
+            errorDiv.style.cssText = 'background: #ffebee; color: #c62828; padding: 10px; border-radius: 6px; margin-top: 10px;';
+            errorDiv.textContent = 'Error: Invalid input. Please check your data.';
+            document.body.appendChild(errorDiv);
+            setTimeout(() => errorDiv.remove(), 5000);
+        }
+
+        function createValidationError() {
+            logActivity('ERROR', 'Creating validation error...');
+            const errorEl = document.getElementById('testError');
+            errorEl.textContent = 'Validation failed: Required field is empty';
+            errorEl.classList.add('active');
+            setTimeout(() => errorEl.classList.remove('active'), 5000);
+        }
+
+        function createEmptyState() {
+            logActivity('WARNING', 'Creating empty state...');
+            const emptyDiv = document.createElement('div');
+            emptyDiv.className = 'empty-state';
+            emptyDiv.style.cssText = 'background: #f5f5f5; padding: 20px; border-radius: 6px; margin-top: 10px; text-align: center;';
+            emptyDiv.textContent = 'No data available';
+            document.body.appendChild(emptyDiv);
+            setTimeout(() => emptyDiv.remove(), 5000);
+        }
+
+        function createStuckLoading() {
+            logActivity('WARNING', 'Creating stuck loading indicator...');
+            const loadingDiv = document.createElement('div');
+            loadingDiv.className = 'loading-indicator';
+            loadingDiv.style.cssText = 'background: #e3f2fd; padding: 20px; border-radius: 6px; margin-top: 10px; text-align: center;';
+            loadingDiv.innerHTML = '<div class="spinner"></div>Loading...';
+            document.body.appendChild(loadingDiv);
+            // Keep it for >10 seconds to trigger stuck loading detection
+        }
+
+        function simulatePause() {
+            logActivity('ACTION', 'Pausing all activity for 5 seconds...');
+            const overlay = document.createElement('div');
+            overlay.style.cssText = 'position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 10000; display: flex; align-items: center; justify-content: center; color: white; font-size: 24px;';
+            overlay.textContent = 'Pausing...';
+            document.body.appendChild(overlay);
+            setTimeout(() => overlay.remove(), 5000);
+        }
+
+        function simulateMultiplePauses() {
+            logActivity('ACTION', 'Simulating multiple pauses...');
+            for (let i = 0; i < 3; i++) {
+                setTimeout(() => simulatePause(), i * 7000);
+            }
+        }
+
+        function forceAnalysis() {
+            logActivity('MANUAL', 'Forcing immediate analysis...');
+            if (window.qaseForceAnalysis) {
+                window.qaseForceAnalysis();
+            } else {
+                logActivity('ERROR', 'Activity tracker not available');
+            }
+        }
+
+        function viewHistory() {
+            if (window.qaseContextAnalyzer) {
+                const history = window.qaseContextAnalyzer.getAnalysisHistory();
+                console.log('Analysis History:', history);
+                logActivity('INFO', `Analysis history: ${history.length} entries (check console)`);
+            }
+        }
+
+        function resetMonitoring() {
+            logActivity('MANUAL', 'Resetting all monitoring stats...');
+            if (window.qaseActivityTracker) {
+                window.qaseActivityTracker.reset();
+            }
+            helpOffersCount = 0;
+            currentScore = 0;
+            document.getElementById('scoreValue').textContent = '0.00';
+            document.getElementById('statClicks').textContent = '0';
+            document.getElementById('statRapidClicks').textContent = '0';
+            document.getElementById('statHesitations').textContent = '0';
+            document.getElementById('statHelpOffers').textContent = '0';
+        }
+
+        async function checkStorage() {
+            logActivity('MANUAL', 'Checking background storage...');
+            try {
+                const response = await chrome.runtime.sendMessage({ type: 'GET_HELP_REQUESTS' });
+                console.log('Help requests in storage:', response.helpRequests);
+                logActivity('INFO', `Found ${response.helpRequests.length} help requests in storage (check console)`);
+            } catch (error) {
+                console.error('Error checking storage:', error);
+                logActivity('ERROR', 'Failed to check storage: ' + error.message);
+            }
+        }
+
+        function dismissHelp() {
+            document.getElementById('helpOffer').classList.remove('active');
+            if (window.qaseContextAnalyzer) {
+                window.qaseContextAnalyzer.recordDismissal();
+            }
+            logActivity('USER', 'Help offer dismissed');
+        }
+
+        function logActivity(type, message) {
+            const logDiv = document.getElementById('activityLog');
+            const entry = document.createElement('div');
+            entry.className = 'log-entry';
+
+            const now = new Date();
+            const time = now.toLocaleTimeString();
+
+            entry.innerHTML = `
+        <span class="log-time">${time}</span>
+        <span class="log-type">${type}</span>
+        ${message}
+      `;
+
+            logDiv.insertBefore(entry, logDiv.firstChild);
+
+            // Keep only last 50 entries
+            while (logDiv.children.length > 50) {
+                logDiv.removeChild(logDiv.lastChild);
+            }
+        }
+
+        // Log initialization
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                logActivity('INFO', 'Page loaded, monitoring components active');
+
+                if (window.qaseActivityTracker) {
+                    logActivity('SUCCESS', 'Activity Tracker: Ready');
+                } else {
+                    logActivity('WARNING', 'Activity Tracker: Not detected');
+                }
+
+                if (window.qaseContextAnalyzer) {
+                    logActivity('SUCCESS', 'Context Analyzer: Ready');
+                } else {
+                    logActivity('WARNING', 'Context Analyzer: Not detected');
+                }
+
+                if (window.qaseDOMObserver) {
+                    logActivity('SUCCESS', 'DOM Observer: Ready');
+                } else {
+                    logActivity('WARNING', 'DOM Observer: Not detected');
+                }
+            }, 500);
+        });
+    </script>
+</body>
+
+</html>

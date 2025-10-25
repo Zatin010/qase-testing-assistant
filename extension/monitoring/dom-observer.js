@@ -40,7 +40,11 @@ class QaseDOMObserver {
 
     checkQaseDomain() {
         const hostname = window.location.hostname;
-        return hostname.includes('qase.io') || hostname.includes('app.qase') || hostname.includes('localhost');
+        return hostname.includes('qase.io') || 
+               hostname.includes('app.qase') || 
+               hostname.includes('localhost') ||
+               hostname.includes('.repl.co') ||
+               hostname.includes('.replit.dev');
     }
 
     init() {

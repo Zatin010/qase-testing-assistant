@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     try {
         await loadSettings();
         await loadErrors();
+        await loadHelpCount();
         setupEventListeners();
         console.log('✅ Popup initialization complete');
     } catch (error) {
@@ -474,6 +475,18 @@ window.addEventListener('error', (event) => {
 
 console.log('✅ popup.js loaded successfully');
 // ========== INSIGHTS TAB FUNCTIONALITY ==========
+
+async function loadHelpCount() {
+    try {
+        const response = await chrome.runtime.sendMessage({
+            type: 'GET_HELP_REQUESTS'
+        });
+        const helpRequests = response.helpRequests || [];
+        updateHelpCount(helpRequests.length);
+    } catch (error) {
+        console.error('❌ Error loading help count:', error);
+    }
+}
 
 async function loadInsights() {
     console.log('📊 Loading insights data...');

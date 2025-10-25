@@ -1,0 +1,44 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.pythonlibs/
+*.egg-info/
+dist/
+build/
+venv/
+env/
+
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Extension packaging
+*.zip
+*.crx
+*.pem
+
+# Logs
+*.log
+
+# Temporary files
+.tmp/
+temp/
+
+# UV
+uv.lock
+
+# Replit
+.replit
+replit.nix

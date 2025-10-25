@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qase Testing Assistant - Test Pages</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            max-width: 800px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+        h1 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 32px;
+        }
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+        .section {
+            margin-bottom: 30px;
+        }
+        .section h2 {
+            color: #333;
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        .card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 12px;
+            text-decoration: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+        .card h3 {
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+        .card p {
+            font-size: 14px;
+            opacity: 0.9;
+            line-height: 1.5;
+        }
+        .info-box {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .info-box h3 {
+            color: #1976d2;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        .info-box ol {
+            margin-left: 20px;
+            color: #555;
+        }
+        .info-box li {
+            margin-bottom: 8px;
+            line-height: 1.6;
+        }
+        code {
+            background: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: #d32f2f;
+            font-size: 13px;
+        }
+        .status {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .status-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        .status-label {
+            font-weight: 600;
+            color: #333;
+            min-width: 140px;
+        }
+        .status-value {
+            color: #667eea;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 Qase Testing Assistant</h1>
+        <p class="subtitle">Chrome Extension v0.2.0 - Test Pages & Documentation</p>
+
+        <div class="status">
+            <div class="status-item">
+                <span class="status-label">Current Phase:</span>
+                <span class="status-value">Phase 2 Complete ✅</span>
+            </div>
+            <div class="status-item">
+                <span class="status-label">Next Phase:</span>
+                <span class="status-value">Phase 3 - CrewAI Integration</span>
+            </div>
+            <div class="status-item">
+                <span class="status-label">Test Server:</span>
+                <span class="status-value">Running on http://localhost:5000</span>
+            </div>
+        </div>
+
+        <div class="info-box">
+            <h3>🔧 Quick Start - Load the Extension</h3>
+            <ol>
+                <li>Open Chrome and navigate to <code>chrome://extensions/</code></li>
+                <li>Enable <strong>Developer mode</strong> (toggle in top-right corner)</li>
+                <li>Click <strong>"Load unpacked"</strong></li>
+                <li>Select the <code>extension/</code> directory from this project</li>
+                <li>The Qase Testing Assistant should appear in your extensions list</li>
+            </ol>
+        </div>
+
+        <div class="section">
+            <h2>📄 Test Pages</h2>
+            <div class="card-grid">
+                <a href="test-page.html" class="card">
+                    <h3>🔍 Error Detection Test</h3>
+                    <p>Test JavaScript error capture, promise rejections, and console errors. Verify the extension badge updates.</p>
+                </a>
+                <a href="test-monitoring.html" class="card">
+                    <h3>📊 Monitoring System Test</h3>
+                    <p>Test proactive AI monitoring: behavior patterns, help scoring, and context analysis.</p>
+                </a>
+                <a href="generate-icons.html" class="card">
+                    <h3>🎨 Icon Generator</h3>
+                    <p>Generate extension icons (16px, 48px, 128px) with the Qase branding gradient.</p>
+                </a>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🎯 Features</h2>
+            <div class="card-grid">
+                <div class="card">
+                    <h3>Phase 1: Error Detection</h3>
+                    <p>✅ JS errors, promise rejections<br>✅ Qase API integration<br>✅ Defect reporting</p>
+                </div>
+                <div class="card">
+                    <h3>Phase 2: AI Monitoring</h3>
+                    <p>✅ Activity tracking<br>✅ Help score calculation<br>✅ DOM observation</p>
+                </div>
+                <div class="card">
+                    <h3>Phase 3: Next Up</h3>
+                    <p>🚀 CrewAI multi-agent system<br>🚀 Intelligent error triage<br>🚀 Agent learning</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-box" style="background: #fff3e0; border-color: #ff9800;">
+            <h3 style="color: #f57c00;">⚡ Debug Commands</h3>
+            <p style="color: #555; margin-bottom: 10px;">Open browser console on test pages and try:</p>
+            <code style="display: block; margin-bottom: 5px;">window.qaseActivityTracker.getSessionSummary()</code>
+            <code style="display: block; margin-bottom: 5px;">window.qaseContextAnalyzer.getAnalysisHistory()</code>
+            <code style="display: block;">window.qaseForceAnalysis()</code>
+        </div>
+    </div>
+</body>
+</html>

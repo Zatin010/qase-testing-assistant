@@ -176,3 +176,4 @@ MIT
 For issues with the extension, please create an issue in the repository.
 
 For Qase API questions, visit https://developers.qase.io/
+# qase-testing-assistant
